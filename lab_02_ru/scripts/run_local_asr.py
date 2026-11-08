@@ -39,6 +39,7 @@ def main() -> None:
         hypothesis, seconds = transcribe(Path(condition["audio_path"]), args.model_dir, args.allow_model_download)
         info = sf.info(condition["audio_path"])
         result_rows.append({**condition, "reference_raw": references[condition["item_id"]]["reference_raw"], "hypothesis_raw": hypothesis, "audio_seconds": info.frames / info.samplerate, "decode_seconds": seconds})
+        print(f"[{len(result_rows)}] {condition['item_id']} / {condition['condition']}: {seconds:.2f}s | {hypothesis}", flush=True)
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text("".join(json.dumps(row) + "\n" for row in result_rows), encoding="utf-8")
     print(f"Decoded {len(result_rows)} local waveform conditions to {args.out}")

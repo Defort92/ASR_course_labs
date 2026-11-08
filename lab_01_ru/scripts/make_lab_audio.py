@@ -141,7 +141,7 @@ def generate_lab_audio(out_dir: Path | str, sample_rate: int = SAMPLE_RATE) -> l
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Генерирует WAV-файлы для Лабораторной 01.")
-    parser.add_argument("--out-dir", type=Path, default=Path("updated_course/lab_01_ru/data/wav"))
+    parser.add_argument("--out-dir", type=Path, default=Path("lab_01_ru/data/wav"))
     return parser.parse_args()
 
 

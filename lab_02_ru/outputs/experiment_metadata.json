@@ -1,0 +1,65 @@
+{
+  "recorded_at_utc": "2026-11-05T23:10:35.541544+00:00",
+  "python": "3.13.5",
+  "platform": "Windows-11-10.0.22631-SP0",
+  "processor": "Intel64 Family 6 Model 154 Stepping 3, GenuineIntel",
+  "model": "tiny.en",
+  "model_repository": "Systran/faster-whisper-tiny.en",
+  "model_revision": "0d3d19a32d3338f10357c0889762bd8d64bbdeba",
+  "model_file_sha256": {
+    "config.json": "14b1b421a90349bc551b881461426b561a874049cb9e4c4864f2ca384f6a7cc5",
+    "model.bin": "1a5afae06a4db91c975c9a9d78be5cc110ee4ea022ad57d55492e4550e936b2a",
+    "tokenizer.json": "929c5252409436dce1b38a75d1abbcb5e132d170d8e324e4e04ed915fa2d22df",
+    "vocabulary.txt": "ff77588746d3a2595d32ab5b69ffd7b95ce2441ac57533cb66fc3eb575a115cf"
+  },
+  "device": "cpu",
+  "compute_type": "int8",
+  "language": "en",
+  "beam_size": 1,
+  "vad_filter": false,
+  "cpu_threads_default": 0,
+  "temperature_default": [
+    0.0,
+    0.2,
+    0.4,
+    0.6,
+    0.8,
+    1.0
+  ],
+  "seed": 17,
+  "items": 5,
+  "conditions_per_item": 7,
+  "decodes": 35,
+  "rtf_excludes_model_initialization": true,
+  "timing_repetitions": 1,
+  "warmup": false,
+  "model_created_per_condition": true,
+  "offline_model_loading": true,
+  "package_versions": {
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "librosa": "1.0.0",
+    "soundfile": "0.14.0",
+    "matplotlib": "3.11.2",
+    "faster-whisper": "1.2.1",
+    "ctranslate2": "4.8.5",
+    "av": "18.1.0",
+    "huggingface-hub": "2.4.0",
+    "tokenizers": "0.23.3",
+    "onnxruntime": "1.31.1"
+  },
+  "source_manifest_sha256": "b7635fa86b16f1b1b414eb43e8f3c67f1ccf00db561136af198c5a05e37ec0c7",
+  "source_wav_sha256": {
+    "1272-128104-0000.wav": "12f8eae82f20ce6725b5afbb04805a0d9f4e1b6e3d35598c545882c3fdb878cf",
+    "1272-128104-0001.wav": "36895794614f8c46088febdf40959f3e784bc2677dcdf33cc486242aecd0a181",
+    "1272-128104-0003.wav": "e08ad6277801267a5e695f941a286f504a001628b49bb6cf97fe70cf19b1a534",
+    "1272-128104-0006.wav": "dd882c27816bca758a4a4243deff5272ebc2fb3399fd6caacef1e7e369eecf18",
+    "1272-128104-0007.wav": "cbb2bcedb3a8de2a8bd11f6c346e672ce53b4cf039094babd9c754259691dbe3"
+  },
+  "raw_asr_sha256": "9d4ee8020ccb841f57749d43290586ed4178f93b1a1f1ae2b23b9e7b761843e7",
+  "result_csv_sha256": {
+    "aggregate_results.csv": "8f6fc1870c4a90f0e4379a77eb45ad81e4bb0d2983e2e22991bb95b0570d4412",
+    "duration_comparison.csv": "d20277d2382f4b21604f3448ffc31b88d81bd5deef4409eff746eeac24f2ed80",
+    "per_item_results.csv": "de21528aa554c9ba7797f7c79d810e5ac5ba3be578bfbd3a0a32c267d87ec6a3"
+  }
+}

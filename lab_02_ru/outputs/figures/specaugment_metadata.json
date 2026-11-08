@@ -1,0 +1,11 @@
+{
+  "time_start": 281,
+  "time_width": 24,
+  "frequency_start": 35,
+  "frequency_width": 10,
+  "sample_rate_hz": 16000,
+  "hop_length": 160,
+  "mel_bands": 80,
+  "frames": 586,
+  "fill_db": -80.0
+}

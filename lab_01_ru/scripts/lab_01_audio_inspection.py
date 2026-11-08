@@ -66,7 +66,7 @@ def save_waveform(audio: np.ndarray, sr: int, title: str, out_path: Path, zoom: 
     if zoom:
         start = min(int(0.5 * sr), max(0, len(audio) - int(0.1 * sr)))
         end = min(start + int(0.1 * sr), len(audio))
-        librosa.display.waveshow(audio[start:end], sr=sr, ax=ax)
+        librosa.display.waveshow(audio[start:end], sr=sr, offset=start / sr, ax=ax)
         ax.set_title(f"{title} — увеличенная волновая форма (100 мс)")
     else:
         librosa.display.waveshow(audio, sr=sr, ax=ax)
@@ -111,10 +111,10 @@ def compute_log_mel(audio: np.ndarray, sr: int) -> np.ndarray:
 def save_log_mel(audio: np.ndarray, sr: int, title: str, out_path: Path) -> None:
     log_mel = compute_log_mel(audio, sr)
     fig, ax = plt.subplots(figsize=(10, 4))
-    img = librosa.display.specshow(log_mel, sr=sr, hop_length=HOP_LENGTH, x_axis="time", y_axis="mel", ax=ax, cmap="viridis")
+    img = librosa.display.specshow(log_mel, sr=sr, hop_length=HOP_LENGTH, x_axis="time", y_axis="mel", fmin=FMIN, fmax=FMAX, ax=ax, cmap="viridis", vmin=-80, vmax=0)
     ax.set_title(f"{title} — log-Mel-спектрограмма ({N_MELS} полос)")
     ax.set_xlabel("Время (с)")
-    ax.set_ylabel("Mel-частота")
+    ax.set_ylabel("Частота (Гц, Mel-шкала)")
     fig.colorbar(img, ax=ax, format="%+2.0f dB")
     fig.tight_layout()
     fig.savefig(out_path, dpi=160)
@@ -128,6 +128,7 @@ def save_mfcc(audio: np.ndarray, sr: int, title: str, out_path: Path) -> None:
     ax.set_title(f"{title} — MFCC ({N_MFCC} коэффициентов)")
     ax.set_xlabel("Время (с)")
     ax.set_ylabel("Коэффициент MFCC")
+    ax.set_yticks(np.arange(N_MFCC), labels=[str(i) for i in range(N_MFCC)])
     fig.colorbar(img, ax=ax)
     fig.tight_layout()
     fig.savefig(out_path, dpi=160)
@@ -138,6 +139,7 @@ def save_contact_sheet(items: list[tuple[str, np.ndarray, int]], out_path: Path)
     if not items:
         return
     rows = len(items)
+    max_duration = max(len(audio) / sr for _, audio, sr in items)
     fig, axes = plt.subplots(rows, 2, figsize=(12, max(3, rows * 2.4)))
     if rows == 1:
         axes = np.array([axes])
@@ -146,11 +148,15 @@ def save_contact_sheet(items: list[tuple[str, np.ndarray, int]], out_path: Path)
         axes[row, 0].set_title(f"{name} — волновая форма")
         axes[row, 0].set_xlabel("Время (с)")
         axes[row, 0].set_ylabel("Амплитуда")
+        axes[row, 0].set_ylim(-1.05, 1.05)
+        axes[row, 0].set_xlim(0, max_duration)
         log_mel = compute_log_mel(audio, sr)
-        librosa.display.specshow(log_mel, sr=sr, hop_length=HOP_LENGTH, x_axis="time", y_axis="mel", ax=axes[row, 1], cmap="viridis")
+        img = librosa.display.specshow(log_mel, sr=sr, hop_length=HOP_LENGTH, x_axis="time", y_axis="mel", fmin=FMIN, fmax=FMAX, ax=axes[row, 1], cmap="viridis", vmin=-80, vmax=0)
+        fig.colorbar(img, ax=axes[row, 1], format="%+2.0f dB")
         axes[row, 1].set_title(f"{name} — log-Mel")
         axes[row, 1].set_xlabel("Время (с)")
-        axes[row, 1].set_ylabel("Mel")
+        axes[row, 1].set_ylabel("Гц (Mel)")
+        axes[row, 1].set_xlim(0, max_duration)
     fig.suptitle("Лабораторная 01: сравнение признаков", fontsize=16)
     fig.tight_layout(rect=[0, 0, 1, 0.98])
     out_path.parent.mkdir(parents=True, exist_ok=True)
@@ -194,8 +200,8 @@ def analyze_audio_dir(audio_dir: Path | str, out_dir: Path | str) -> list[dict[s
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Строит графики волновой формы, спектрограммы, log-Mel и MFCC для аудио лабораторной 01.")
-    parser.add_argument("--audio-dir", type=Path, default=Path("updated_course/lab_01_ru/data/wav"))
-    parser.add_argument("--out-dir", type=Path, default=Path("updated_course/lab_01_ru/outputs"))
+    parser.add_argument("--audio-dir", type=Path, default=Path("lab_01_ru/data/wav"))
+    parser.add_argument("--out-dir", type=Path, default=Path("lab_01_ru/outputs"))
     return parser.parse_args()
 
 

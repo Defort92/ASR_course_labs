@@ -5,7 +5,7 @@
 Сгенерируйте или обновите их из корня репозитория:
 
 ```bash
-python updated_course/lab_01_ru/scripts/make_lab_audio.py --out-dir updated_course/lab_01_ru/data/wav
+python lab_01_ru/scripts/make_lab_audio.py --out-dir lab_01_ru/data/wav
 ```
 
 Сгенерированные файлы:

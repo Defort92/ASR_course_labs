@@ -1,0 +1,8 @@
+.venv*/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+.idea/
+.cache/
+lab_02_ru/models/
